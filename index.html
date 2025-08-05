@@ -97,10 +97,10 @@
             font-weight: bold;
             margin: 10px 0;
         }
-        #rsvp {
+        #rsvp, #confirmation {
             margin-top: 15px;
         }
-        #name-no, #additional {
+        #name-no, #additional, #confirmation {
             display: none;
             margin-top: 10px;
         }
@@ -181,16 +181,35 @@
             <button id="submit-yes">Submit</button>
             <button id="go-back-yes">Go back</button>
         </div>
+        
+        <div id="confirmation">
+            <p>Thank you for your RSVP!</p>
+            <button id="new-rsvp">Submit another RSVP</button>
+        </div>
     </div>
     
-    <!-- Hidden form to submit to Google Forms -->
-    <form id="rsvp-form" action="https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse" method="POST" style="display: none;">
-        <input type="text" id="name-field" name="entry.1498135098" /> <!-- Name -->
-        <input type="text" id="attending-input" name="entry.877086558" /> <!-- Can you attend? -->
-        <input type="text" id="additional-input" name="entry.1294431577" /> <!-- How many people? -->
-    </form>
-    
     <script>
+        function submitForm(data) {
+            const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse';
+            fetch(formUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Required for Google Forms submission
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(data).toString()
+            })
+            .then(() => {
+                document.getElementById('name-no').style.display = 'none';
+                document.getElementById('additional').style.display = 'none';
+                document.getElementById('confirmation').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                alert('There was an error submitting your RSVP. Please try again or contact the form owner.');
+            });
+        }
+
         document.getElementById('cannot-come').addEventListener('click', function() {
             document.getElementById('rsvp').style.display = 'none';
             document.getElementById('name-no').style.display = 'block';
@@ -222,10 +241,12 @@
                 alert('Please enter your name.');
                 return;
             }
-            document.getElementById('name-field').value = nameInput;
-            document.getElementById('attending-input').value = 'Sorry, can\'t make it';
-            document.getElementById('additional-input').value = '0'; // Automatically set to 0
-            document.getElementById('rsvp-form').submit();
+            const data = {
+                'entry.1498135098': nameInput,
+                'entry.877086558': 'Sorry, can\'t make it',
+                'entry.1294431577': '0'
+            };
+            submitForm(data);
         });
         
         document.getElementById('submit-yes').addEventListener('click', function() {
@@ -234,10 +255,20 @@
                 alert('Please enter your name.');
                 return;
             }
-            document.getElementById('name-field').value = nameInput;
-            document.getElementById('attending-input').value = 'Yes, I\'ll be there';
-            document.getElementById('additional-input').value = document.getElementById('num-additional').value;
-            document.getElementById('rsvp-form').submit();
+            const data = {
+                'entry.1498135098': nameInput,
+                'entry.877086558': 'Yes, I\'ll be there',
+                'entry.1294431577': document.getElementById('num-additional').value
+            };
+            submitForm(data);
+        });
+        
+        document.getElementById('new-rsvp').addEventListener('click', function() {
+            document.getElementById('confirmation').style.display = 'none';
+            document.getElementById('rsvp').style.display = 'block';
+            document.getElementById('name-input-no').value = '';
+            document.getElementById('name-input-yes').value = '';
+            document.getElementById('num-additional').value = '0';
         });
     </script>
 </body>
