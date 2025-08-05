@@ -191,36 +191,32 @@
     <script>
         function submitForm(data) {
             const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse';
-            const formData = new FormData();
-            formData.append('fvv', '1');
-            formData.append('pageHistory', '0');
-            formData.append('fbzx', '-8260174014815244768');
-            formData.append('submissionTimestamp', new Date().getTime().toString());
-            formData.append('partialResponse', '[null,null,"-8260174014815244768"]');
-            formData.append('token', 'yRd8eZgBAAA.k9Of1baWBBX4FBKMHFSiKw.B20HroSWbIonzBuUYjgNXQ');
-            for (const [key, value] of Object.entries(data)) {
-                formData.append(key, value);
-            }
+            const formData = new URLSearchParams({
+                'fvv': '1',
+                'pageHistory': '0',
+                'fbzx': '-8260174014815244768',
+                'submissionTimestamp': '-1',
+                ...data
+            });
             
             fetch(formUrl, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
             })
-            .then(response => {
-                if (response.type === 'opaque') { // no-cors mode returns opaque response
-                    document.getElementById('name-no').style.display = 'none';
-                    document.getElementById('additional').style.display = 'none';
-                    document.getElementById('confirmation').style.display = 'block';
-                    console.log('Form submitted:', Object.fromEntries(formData));
-                    alert('RSVP submitted! Please check the Google Sheet to confirm.');
-                } else {
-                    throw new Error('Submission failed');
-                }
+            .then(() => {
+                document.getElementById('name-no').style.display = 'none';
+                document.getElementById('additional').style.display = 'none';
+                document.getElementById('confirmation').style.display = 'block';
+                // Verify submission by checking Google Sheet manually
+                console.log('Form submitted:', formData.toString());
             })
             .catch(error => {
-                console.error('Submission error:', error, 'Form data:', Object.fromEntries(formData));
-                alert('Error submitting RSVP. Please verify the Google Form is accepting responses or contact the form owner at 1995mvs@gmail.com.');
+                console.error('Submission error:', error);
+                alert('Error submitting RSVP. Please check your Google Form settings or contact the form owner.');
             });
         }
 
@@ -258,9 +254,7 @@
             const data = {
                 'entry.1498135098': nameInput,
                 'entry.877086558': 'Sorry, can\'t make it',
-                'entry.1294431577': '0',
-                'entry.877086558_sentinel': '',
-                'entry.1294431577_sentinel': ''
+                'entry.1294431577': '0'
             };
             submitForm(data);
         });
@@ -274,9 +268,7 @@
             const data = {
                 'entry.1498135098': nameInput,
                 'entry.877086558': 'Yes, I\'ll be there',
-                'entry.1294431577': document.getElementById('num-additional').value,
-                'entry.877086558_sentinel': '',
-                'entry.1294431577_sentinel': ''
+                'entry.1294431577': document.getElementById('num-additional').value
             };
             submitForm(data);
         });
