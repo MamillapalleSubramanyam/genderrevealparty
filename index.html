@@ -191,22 +191,32 @@
     <script>
         function submitForm(data) {
             const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse';
+            const formData = new URLSearchParams({
+                'fvv': '1',
+                'pageHistory': '0',
+                'fbzx': '-8260174014815244768',
+                'submissionTimestamp': '-1',
+                ...data
+            });
+            
             fetch(formUrl, {
                 method: 'POST',
-                mode: 'no-cors', // Required for Google Forms submission
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: new URLSearchParams(data).toString()
+                body: formData.toString()
             })
             .then(() => {
                 document.getElementById('name-no').style.display = 'none';
                 document.getElementById('additional').style.display = 'none';
                 document.getElementById('confirmation').style.display = 'block';
+                // Verify submission by checking Google Sheet manually
+                console.log('Form submitted:', formData.toString());
             })
             .catch(error => {
                 console.error('Submission error:', error);
-                alert('There was an error submitting your RSVP. Please try again or contact the form owner.');
+                alert('Error submitting RSVP. Please check your Google Form settings or contact the form owner.');
             });
         }
 
@@ -236,7 +246,7 @@
         });
         
         document.getElementById('submit-no').addEventListener('click', function() {
-            const nameInput = document.getElementById('name-input-no').value;
+            const nameInput = document.getElementById('name-input-no').value.trim();
             if (!nameInput) {
                 alert('Please enter your name.');
                 return;
@@ -250,7 +260,7 @@
         });
         
         document.getElementById('submit-yes').addEventListener('click', function() {
-            const nameInput = document.getElementById('name-input-yes').value;
+            const nameInput = document.getElementById('name-input-yes').value.trim();
             if (!nameInput) {
                 alert('Please enter your name.');
                 return;
