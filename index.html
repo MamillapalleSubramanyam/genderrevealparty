@@ -1,0 +1,244 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuhya and Subramanyam's Baby's Gender Reveal Party RSVP</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FD 70%, #228B22 70%, #006400 100%); /* Sky to garden gradient */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #333;
+            padding: 10px;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%; /* Sky area */
+            background: 
+                radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%) 10% 20% / 200px 100px no-repeat,
+                radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%) 60% 30% / 300px 150px no-repeat,
+                radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%) 40% 50% / 250px 120px no-repeat,
+                radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%) 80% 40% / 220px 110px no-repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        .small {
+            font-size: 0.9em;
+            margin: 3px 0;
+        }
+        .large {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 3px 0;
+        }
+        .cradle {
+            margin: 10px auto;
+            width: 250px;
+        }
+        .selected-option {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        #rsvp {
+            margin-top: 15px;
+        }
+        #name-no, #additional {
+            display: none;
+            margin-top: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 1em;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select, input[type="text"] {
+            font-size: 1em;
+            padding: 5px;
+            margin: 5px;
+            width: 200px;
+        }
+        input[type="text"] {
+            maxlength: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Anuhya and Subramanyam's Baby's Gender Reveal Party</h1>
+        
+        <div class="cradle">
+            <svg viewBox="0 0 400 300">
+                <!-- Cradle box -->
+                <rect x="50" y="100" width="300" height="150" fill="#8B4513" rx="20" ry="20" />
+                <text x="200" y="210" font-size="100" text-anchor="middle" fill="white">?</text>
+                
+                <!-- Blue baby peeking out -->
+                <g transform="translate(80, 40)">
+                    <circle cx="50" cy="50" r="40" fill="lightblue" stroke="blue" stroke-width="5" />
+                    <path d="M10 90 Q50 140 90 90" fill="none" stroke="blue" stroke-width="10" />
+                </g>
+                
+                <!-- Pink baby peeking out -->
+                <g transform="translate(220, 40)">
+                    <circle cx="50" cy="50" r="40" fill="lightpink" stroke="pink" stroke-width="5" />
+                    <path d="M10 90 Q50 140 90 90" fill="none" stroke="pink" stroke-width="10" />
+                </g>
+            </svg>
+        </div>
+        
+        <p class="small">We hope to see you on</p>
+        <p class="large">23rd August, 2025</p>
+        <p class="small">at</p>
+        <p class="large">5PM</p>
+        <p class="small">At our house at</p>
+        <p class="large">2417 242nd PL SE, Bothell, WA 98021</p>
+        
+        <div id="rsvp">
+            <button id="cannot-come">I cannot come</button>
+            <button id="will-come">I will come</button>
+        </div>
+        
+        <div id="name-no">
+            <p id="selected-no" class="selected-option"></p>
+            <p>Name: <input type="text" id="name-input-no" required maxlength="100"></p>
+            <button id="submit-no">Submit</button>
+            <button id="go-back-no">Go back</button>
+        </div>
+        
+        <div id="additional">
+            <p id="selected-yes" class="selected-option"></p>
+            <p>Name: <input type="text" id="name-input-yes" required maxlength="100"></p>
+            <p>I will come with 
+                <select id="num-additional">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select> additional folks
+            </p>
+            <button id="submit-yes">Submit</button>
+            <button id="go-back-yes">Go back</button>
+        </div>
+    </div>
+    
+    <!-- Hidden form to submit to Google Forms -->
+    <form id="rsvp-form" action="https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse" method="POST" style="display: none;">
+        <input type="text" id="name-field" name="entry.1498135098" /> <!-- Name -->
+        <input type="text" id="attending-input" name="entry.877086558" /> <!-- Can you attend? -->
+        <input type="text" id="additional-input" name="entry.1294431577" /> <!-- How many people? -->
+    </form>
+    
+    <script>
+        document.getElementById('cannot-come').addEventListener('click', function() {
+            document.getElementById('rsvp').style.display = 'none';
+            document.getElementById('name-no').style.display = 'block';
+            document.getElementById('selected-no').textContent = 'RSVP No: I cannot come';
+        });
+        
+        document.getElementById('will-come').addEventListener('click', function() {
+            document.getElementById('rsvp').style.display = 'none';
+            document.getElementById('additional').style.display = 'block';
+            document.getElementById('selected-yes').textContent = 'RSVP Yes: I will come';
+        });
+        
+        document.getElementById('go-back-no').addEventListener('click', function() {
+            document.getElementById('name-no').style.display = 'none';
+            document.getElementById('rsvp').style.display = 'block';
+            document.getElementById('name-input-no').value = '';
+        });
+        
+        document.getElementById('go-back-yes').addEventListener('click', function() {
+            document.getElementById('additional').style.display = 'none';
+            document.getElementById('rsvp').style.display = 'block';
+            document.getElementById('name-input-yes').value = '';
+            document.getElementById('num-additional').value = '0';
+        });
+        
+        document.getElementById('submit-no').addEventListener('click', function() {
+            const nameInput = document.getElementById('name-input-no').value;
+            if (!nameInput) {
+                alert('Please enter your name.');
+                return;
+            }
+            document.getElementById('name-field').value = nameInput;
+            document.getElementById('attending-input').value = 'Sorry, can\'t make it';
+            document.getElementById('additional-input').value = '0';
+            document.getElementById('rsvp-form').submit();
+        });
+        
+        document.getElementById('submit-yes').addEventListener('click', function() {
+            const nameInput = document.getElementById('name-input-yes').value;
+            if (!nameInput) {
+                alert('Please enter your name.');
+                return;
+            }
+            document.getElementById('name-field').value = nameInput;
+            document.getElementById('attending-input').value = 'Yes, I\'ll be there';
+            document.getElementById('additional-input').value = document.getElementById('num-additional').value;
+            document.getElementById('rsvp-form').submit();
+        });
+    </script>
+</body>
+</html>
