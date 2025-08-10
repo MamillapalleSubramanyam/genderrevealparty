@@ -11,17 +11,27 @@
             background-position: center; /* Centers the image */
             background-repeat: no-repeat; /* Prevents tiling */
             background-color: #000000; /* Black fallback if image fails to load */
-            color: #333; /* Dark text for readability without overlay; adjust if needed */
             margin: 0;
             padding: 20px;
             min-height: 100vh; /* Full viewport height */
         }
         .container {
-            background-color: transparent; /* Removed any hue/overlay for direct text on image */
+            background-color: transparent; /* No overlay for direct text on image */
             padding: 20px;
             border-radius: 10px;
             max-width: 600px;
             margin: 0 auto;
+        }
+        /* White text with black border around characters for readability */
+        h1, p {
+            color: #ffffff; /* White text */
+            -webkit-text-stroke: 1px #000000; /* Black border around characters (WebKit browsers) */
+            text-shadow: 
+                -1px -1px 0 #000000,  
+                 1px -1px 0 #000000,
+                -1px  1px 0 #000000,
+                 1px  1px 0 #000000; /* Fallback shadow for border effect in other browsers */
+            font-weight: bold; /* Make text bolder for better visibility */
         }
         .iframe-wrapper {
             position: relative;
@@ -37,7 +47,7 @@
             width: 100%;
             height: calc(100% + 300px); /* Extra height for cropping */
             border: none;
-            opacity: 0.8; /* Increased transparency (80% opaque); adjust 0.7-0.9 for more/less visibility of background */
+            opacity: 0.5; /* Increased transparency for more background visibility */
         }
         /* Mobile adjustments: Full-screen iframe for no scroll */
         @media (max-width: 768px) {
@@ -57,10 +67,11 @@
                 height: calc(100% + 350px);
                 opacity: 0.8; /* Same transparency on mobile */
             }
-            /* Hide non-essential elements on mobile for more space */
+            /* Adjust text on mobile */
             h1, p {
                 font-size: smaller;
                 margin: 5px 0;
+                -webkit-text-stroke: 0.5px #000000; /* Thinner stroke on mobile for clarity */
             }
         }
         /* Debug: Force image visibility */
@@ -108,4 +119,3 @@
     </div>
 </body>
 </html>
-
