@@ -6,119 +6,47 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url('background.jpeg'); /* Replace with your image filename if different */
+            background-image: url('background.jpeg'); /* Your background image */
             background-size: contain; /* Shows full image without cropping */
             background-position: center; /* Centers the image */
             background-repeat: no-repeat; /* Prevents tiling */
-            color: #333; /* Dark text for readability on light backgrounds; adjust if needed */
+            color: #333; /* Dark text for readability */
             margin: 0;
             padding: 20px;
-            min-height: 100vh; /* Ensures body covers full viewport height */
+            min-height: 100vh; /* Full viewport height */
         }
-        /* Add semi-transparent overlay if the image makes text hard to read */
         .container {
-            background-color: rgba(255, 255, 255, 0.8); /* White overlay with 80% opacity */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent overlay for readability */
             padding: 20px;
             border-radius: 10px;
             max-width: 600px;
             margin: 0 auto;
         }
-        /* Adjust for mobile: Ensure full image visibility */
+        iframe {
+            width: 100%; /* Full width on mobile/desktop */
+            height: 800px; /* Adjust height as needed; make taller for full form visibility */
+            border: none; /* No border */
+            margin-top: 20px;
+        }
+        /* Mobile adjustments */
         @media (max-width: 768px) {
             body {
-                background-size: contain; /* Prioritize full image on smaller screens */
-                background-attachment: scroll; /* Allow scrolling if image is tall */
+                background-size: contain; /* Full image on mobile */
+                background-attachment: scroll; /* Scroll with content if needed */
             }
             .container {
-                max-width: 100%; /* Full width on mobile */
+                max-width: 100%;
                 padding: 10px;
             }
+            iframe {
+                height: 1000px; /* Taller on mobile to fit form */
+            }
         }
-        /* Rest of your existing styles here */
         .question-mark {
             font-size: 100px;
             color: #ff69b4; /* Pink color */
         }
-        .options {
-            margin-top: 20px;
-        }
-        .option-button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-        .option-button:hover {
-            background-color: #45a049;
-        }
-        #cannot-attend, #will-attend, #confirmation {
-            display: none;
-        }
-        form {
-            margin-top: 20px;
-        }
-        input[type="text"], select {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        button {
-            background-color: #008CBA;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #007B9A;
-        }
-        iframe {
-            display: none;
-        }
     </style>
-    <script>
-        function showCannotAttend() {
-            document.getElementById('options').style.display = 'none';
-            document.getElementById('cannot-attend').style.display = 'block';
-        }
-
-        function showWillAttend() {
-            document.getElementById('options').style.display = 'none';
-            document.getElementById('will-attend').style.display = 'block';
-        }
-
-        function showOptions() {
-            document.getElementById('cannot-attend').style.display = 'none';
-            document.getElementById('will-attend').style.display = 'none';
-            document.getElementById('confirmation').style.display = 'none';
-            document.getElementById('options').style.display = 'block';
-        }
-
-        function showConfirmation() {
-            document.getElementById('cannot-attend').style.display = 'none';
-            document.getElementById('will-attend').style.display = 'none';
-            document.getElementById('confirmation').style.display = 'block';
-        }
-
-        var cannotAttendSubmitted = false;
-        var willAttendSubmitted = false;
-
-        function checkSubmission() {
-            if (cannotAttendSubmitted || willAttendSubmitted) {
-                showConfirmation();
-                cannotAttendSubmitted = false;
-                willAttendSubmitted = false;
-            } else {
-                setTimeout(checkSubmission, 500);
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -130,42 +58,9 @@
         <p><strong>5PM</strong></p>
         <p>At our house at</p>
         <p>2417 242nd PL SE, Bothell, WA 98021</p>
-        <div id="options" class="options">
-            <button class="option-button" onclick="showCannotAttend()">I cannot come</button>
-            <button class="option-button" onclick="showWillAttend()">I will come</button>
-        </div>
-        <div id="cannot-attend">
-            <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse" method="POST" target="hidden_iframe" onsubmit="cannotAttendSubmitted=true; checkSubmission()">
-                <input type="hidden" name="entry.877086558" value="Sorry, can't make it">
-                <input type="hidden" name="entry.1294431577" value="0">
-                <label for="name-cannot-attend">Name: </label>
-                <input type="text" id="name-cannot-attend" name="entry.1498135098" placeholder="Your Name" required>
-                <button type="submit">Submit</button>
-                <button type="button" onclick="showOptions()">Go back</button>
-            </form>
-        </div>
-        <div id="will-attend">
-            <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse" method="POST" target="hidden_iframe" onsubmit="willAttendSubmitted=true; checkSubmission()">
-                <input type="hidden" name="entry.877086558" value="Yes, I'll be there">
-                <label for="name-will-attend">Name: </label>
-                <input type="text" id="name-will-attend" name="entry.1498135098" placeholder="Your Name" required>
-                <label for="additional-folks">I will come with </label>
-                <select id="additional-folks" name="entry.1294431577" required>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-                <span> additional folks</span>
-                <button type="submit">Submit</button>
-                <button type="button" onclick="showOptions()">Go back</button>
-            </form>
-        </div>
-        <div id="confirmation">
-            <h2>Thank you for your RSVP!</h2>
-            <button type="button" onclick="showOptions()">Submit another RSVP</button>
-        </div>
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+        
+        <!-- Embedded Google Form Iframe -->
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 </body>
 </html>
