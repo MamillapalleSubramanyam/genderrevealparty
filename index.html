@@ -47,13 +47,14 @@
             width: 100%;
             height: calc(100% + 300px); /* Extra height for cropping */
             border: none;
-            opacity: 0.5; /* Increased transparency for more background visibility */
+            opacity: 0.7; /* Increased transparency for more background visibility */
         }
-        /* Mobile adjustments: Full-screen iframe for no scroll */
+        /* Mobile adjustments: Full-screen iframe for no scroll and move content down */
         @media (max-width: 768px) {
             body {
                 background-size: contain; /* Full image on mobile */
                 background-attachment: scroll; /* Allow background to scroll with content */
+                margin-top: 96px; /* Move entire content down by ~1 inch (96px = 1 CSS inch) */
             }
             .container {
                 max-width: 100%;
