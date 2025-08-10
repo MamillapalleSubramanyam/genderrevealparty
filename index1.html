@@ -1,0 +1,148 @@
+<html lang="en">
+<head>
+    <title>Anuhya and Subramanyam's Baby's Gender Reveal Party</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .question-mark {
+            font-size: 100px;
+            color: #ff69b4; /* Pink color */
+        }
+        .options {
+            margin-top: 20px;
+        }
+        .option-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .option-button:hover {
+            background-color: #45a049;
+        }
+        #cannot-attend, #will-attend, #confirmation {
+            display: none;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #007B9A;
+        }
+        iframe {
+            display: none;
+        }
+    </style>
+    <script>
+        function showCannotAttend() {
+            document.getElementById('options').style.display = 'none';
+            document.getElementById('cannot-attend').style.display = 'block';
+        }
+
+        function showWillAttend() {
+            document.getElementById('options').style.display = 'none';
+            document.getElementById('will-attend').style.display = 'block';
+        }
+
+        function showOptions() {
+            document.getElementById('cannot-attend').style.display = 'none';
+            document.getElementById('will-attend').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'none';
+            document.getElementById('options').style.display = 'block';
+        }
+
+        function showConfirmation() {
+            document.getElementById('cannot-attend').style.display = 'none';
+            document.getElementById('will-attend').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+        }
+
+        var cannotAttendSubmitted = false;
+        var willAttendSubmitted = false;
+
+        function checkSubmission() {
+            if (cannotAttendSubmitted || willAttendSubmitted) {
+                showConfirmation();
+                cannotAttendSubmitted = false;
+                willAttendSubmitted = false;
+            } else {
+                setTimeout(checkSubmission, 500);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Anuhya and Subramanyam's Baby's Gender Reveal Party</h1>
+        <div class="question-mark">?</div>
+        <p>We hope to see you on</p>
+        <p><strong>23rd August, 2025</strong></p>
+        <p>at</p>
+        <p><strong>5PM</strong></p>
+        <p>At our house at</p>
+        <p>2417 242nd PL SE, Bothell, WA 98021</p>
+        <div id="options" class="options">
+            <button class="option-button" onclick="showCannotAttend()">I cannot come</button>
+            <button class="option-button" onclick="showWillAttend()">I will come</button>
+        </div>
+        <div id="cannot-attend">
+            <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse" method="POST" target="hidden_iframe" onsubmit="cannotAttendSubmitted=true; checkSubmission()">
+                <input type="hidden" name="entry.877086558" value="Sorry, can't make it">
+                <input type="hidden" name="entry.1294431577" value="0">
+                <label for="name-cannot-attend">Name: </label>
+                <input type="text" id="name-cannot-attend" name="entry.1498135098" placeholder="Your Name" required>
+                <button type="submit">Submit</button>
+                <button type="button" onclick="showOptions()">Go back</button>
+            </form>
+        </div>
+        <div id="will-attend">
+            <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/formResponse" method="POST" target="hidden_iframe" onsubmit="willAttendSubmitted=true; checkSubmission()">
+                <input type="hidden" name="entry.877086558" value="Yes, I'll be there">
+                <label for="name-will-attend">Name: </label>
+                <input type="text" id="name-will-attend" name="entry.1498135098" placeholder="Your Name" required>
+                <label for="additional-folks">I will come with </label>
+                <select id="additional-folks" name="entry.1294431577" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <span> additional folks</span>
+                <button type="submit">Submit</button>
+                <button type="button" onclick="showOptions()">Go back</button>
+            </form>
+        </div>
+        <div id="confirmation">
+            <h2>Thank you for your RSVP!</h2>
+            <button type="button" onclick="showOptions()">Submit another RSVP</button>
+        </div>
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    </div>
+</body>
+</html>
