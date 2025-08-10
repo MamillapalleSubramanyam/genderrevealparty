@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Anuhya and Subramanyam's Baby's Gender Reveal Party</title>
@@ -5,13 +6,23 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
-        }
-        .container {
-            margin: 0 auto;
-            max-width: 600px;
+            background-image: url('background.jpg'); /* Replace with your image filename if different */
+            background-size: cover; /* Scales the image to cover the entire page */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents tiling */
+            color: #333; /* Dark text for readability on light backgrounds; adjust if needed */
+            margin: 0;
             padding: 20px;
         }
+        /* Add semi-transparent overlay if the image makes text hard to read */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* White overlay with 80% opacity */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Rest of your existing styles here */
         .question-mark {
             font-size: 100px;
             color: #ff69b4; /* Pink color */
