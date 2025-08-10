@@ -6,18 +6,18 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url('background.jpeg'); /* Ensure this path is correct; case-sensitive */
+            background-image: url('background.jpeg'); /* Your background image */
             background-size: contain; /* Shows full image without cropping */
             background-position: center; /* Centers the image */
             background-repeat: no-repeat; /* Prevents tiling */
             background-color: #000000; /* Black fallback if image fails to load */
-            color: #fff; /* White text for dark background readability */
+            color: #333; /* Dark text for readability without overlay; adjust if needed */
             margin: 0;
             padding: 20px;
             min-height: 100vh; /* Full viewport height */
         }
         .container {
-            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay for readability on image */
+            background-color: transparent; /* Removed any hue/overlay for direct text on image */
             padding: 20px;
             border-radius: 10px;
             max-width: 600px;
@@ -37,6 +37,7 @@
             width: 100%;
             height: calc(100% + 300px); /* Extra height for cropping */
             border: none;
+            opacity: 0.8; /* Increased transparency (80% opaque); adjust 0.7-0.9 for more/less visibility of background */
         }
         /* Mobile adjustments: Full-screen iframe for no scroll */
         @media (max-width: 768px) {
@@ -54,16 +55,13 @@
             iframe {
                 top: -180px; /* Adjust for mobile */
                 height: calc(100% + 350px);
+                opacity: 0.8; /* Same transparency on mobile */
             }
             /* Hide non-essential elements on mobile for more space */
-            h1, p, .question-mark {
+            h1, p {
                 font-size: smaller;
                 margin: 5px 0;
             }
-        }
-        .question-mark {
-            font-size: 100px;
-            color: #ff69b4; /* Pink color */
         }
         /* Debug: Force image visibility */
         body::before {
@@ -96,7 +94,6 @@
 <body>
     <div class="container">
         <h1>Anuhya and Subramanyam's Baby's Gender Reveal Party</h1>
-        <div class="question-mark">?</div>
         <p>We hope to see you on</p>
         <p><strong>23rd August, 2025</strong></p>
         <p>at</p>
@@ -111,4 +108,3 @@
     </div>
 </body>
 </html>
-
