@@ -14,76 +14,70 @@
             margin: 0;
             padding: 20px;
             min-height: 100vh; /* Full viewport height */
+            font-size: 16pt;
         }
         .container {
-            background-color: transparent; /* No overlay for direct text on image */
+            background-color: transparent;
             padding: 20px;
             border-radius: 10px;
             max-width: 600px;
             margin: 0 auto;
         }
-        /* White text with black border around characters for readability */
         h1, p {
-            color: #ffffff; /* White text */
-            -webkit-text-stroke: 1px #000000; /* Black border around characters (WebKit browsers) */
-            text-shadow: 
-                -1px -1px 0 #000000,  
-                 1px -1px 0 #000000,
-                -1px  1px 0 #000000,
-                 1px  1px 0 #000000; /* Fallback shadow for border effect in other browsers */
-            font-weight: bold; /* Make text bolder for better visibility */
-            font-size: 18pt; /* Increased by 2pt from base */
+            color: #ffffff;
+            -webkit-text-stroke: 1px #000000;
+            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+            font-weight: bold;
+            font-size: 18pt;
         }
         h1 {
-            font-size: 24pt; /* Larger for title, increased by 2pt */
+            font-size: 24pt;
         }
         .iframe-wrapper {
             position: relative;
             overflow: hidden;
             width: 100%;
-            height: 100vh; /* Full viewport height to show everything without page scroll */
+            height: 100vh;
             margin-top: 20px;
         }
         iframe {
             position: absolute;
-            top: -200px; /* Crop top (title/description); adjust as needed */
+            top: -200px;
             left: 0;
             width: 100%;
-            height: calc(100% + 300px); /* Extra height for cropping */
+            height: calc(100% + 300px);
             border: none;
-            opacity: 0.8; /* Increased transparency for more background visibility */
+            opacity: 0.8;
         }
-        /* Mobile adjustments: Full-screen iframe for no scroll and move content down */
         @media (max-width: 768px) {
             body {
-                background-size: contain; /* Full image on mobile */
-                background-attachment: scroll; /* Allow background to scroll with content */
-                margin-top: 96px; /* Move entire content down by ~1 inch (96px = 1 CSS inch) */
+                background-size: 105%; /* Zoomed in 5% more on mobile */
+                background-attachment: scroll;
+                margin-top: 96px;
+                font-size: 18pt; /* Increased base font size on mobile for larger text */
             }
             .container {
                 max-width: 100%;
                 padding: 10px;
             }
             .iframe-wrapper {
-                height: 100vh; /* Full height on mobile */
+                height: 100vh;
             }
             iframe {
-                top: -180px; /* Adjust for mobile */
+                top: -180px;
                 height: calc(100% + 350px);
-                opacity: 0.8; /* Same transparency on mobile */
+                opacity: 0.8;
             }
-            /* Adjust text on mobile */
             h1, p {
-                font-size: 18pt; /* Increased by 2pt on mobile */
+                font-size: 20pt; /* Increased by 2pt more on mobile */
                 margin: 5px 0;
-                -webkit-text-stroke: 0.5px #000000; /* Thinner stroke on mobile for clarity */
+                -webkit-text-stroke: 0.5px #000000;
             }
             h1 {
-                font-size: 26pt; /* Bigger title font on mobile */
-                margin-top: 20px; /* Position title lower */
+                font-size: 28pt; /* Bigger title font on mobile */
+                margin-top: 20px;
             }
         }
-        /* Debug: Force image visibility */
         body::before {
             content: '';
             position: fixed;
@@ -91,17 +85,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: inherit; /* Mirrors body background for testing */
+            background: inherit;
             z-index: -1;
         }
     </style>
     <script>
-        // Optional: Dynamically resize iframe to fit content (if needed)
         window.addEventListener('resize', function() {
             var iframe = document.querySelector('iframe');
             iframe.style.height = window.innerHeight + 'px';
         });
-        // Debug: Alert if image fails to load
         window.onload = function() {
             var img = new Image();
             img.src = 'background.jpeg';
@@ -128,4 +120,3 @@
     </div>
 </body>
 </html>
-
