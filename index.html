@@ -51,10 +51,10 @@
         }
         @media (max-width: 768px) {
             body {
-                background-size: 105%; /* Zoomed in 5% more on mobile */
+                background-size: contain; /* Full image on mobile */
                 background-attachment: scroll;
                 margin-top: 96px;
-                font-size: 18pt; /* Increased base font size on mobile for larger text */
+                font-size: 20pt; /* Increased base font size further on mobile */
             }
             .container {
                 max-width: 100%;
@@ -69,12 +69,12 @@
                 opacity: 0.8;
             }
             h1, p {
-                font-size: 20pt; /* Increased by 2pt more on mobile */
+                font-size: 28pt; /* Increased by 2pt more on mobile */
                 margin: 5px 0;
                 -webkit-text-stroke: 0.5px #000000;
             }
             h1 {
-                font-size: 28pt; /* Bigger title font on mobile */
+                font-size: 34pt; /* Bigger title font on mobile */
                 margin-top: 20px;
             }
         }
