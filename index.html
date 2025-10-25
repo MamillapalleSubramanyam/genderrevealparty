@@ -16,7 +16,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-image: url('background.jpg'); /* Your background image */
-            background-size: cover; /* Changed to cover to fill the space */
+            background-size: contain; /* Changed back to contain to zoom down */
             background-position: center; /* Centers the image */
             background-repeat: no-repeat; /* Prevents tiling */
             background-color: #000000; /* Black fallback if image fails to load */
@@ -76,14 +76,17 @@
             border-radius: 10px;
         }
         .button {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: transparent;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
             display: inline-block;
             margin-top: 10px;
+            background: linear-gradient(to right, lightpink, lightblue);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 20pt;
         }
         #leaves-container {
             position: fixed;
@@ -125,10 +128,10 @@
         .leaf:nth-child(10) { left: 15%; animation-duration: 19s; animation-delay: 6s; }
         @media (max-width: 768px) {
             body {
-                background-size: cover; /* Changed to cover for mobile to fill space */
+                background-size: contain; /* Contain for mobile */
                 background-attachment: scroll;
                 margin-top: 0; /* Removed margin-top to reduce space above */
-                font-size: 20pt; /* Increased base font size further on mobile */
+                font-size: 24pt; /* Larger base font */
             }
             .container {
                 max-width: 100%;
@@ -143,12 +146,12 @@
                 opacity: 0.8;
             }
             h1, p {
-                font-size: 22pt; /* Increased by 2pt more on mobile */
+                font-size: 28pt; /* Larger on mobile */
                 margin: 5px 0;
                 -webkit-text-stroke: 0.5px #000000;
             }
             h1 {
-                font-size: 30pt; /* Bigger title font on mobile */
+                font-size: 36pt; /* Bigger title on mobile */
                 margin-top: 20px;
             }
         }
@@ -220,6 +223,7 @@
             <p>Directions for parking and walking directions to the event building:</p>
             <img src="maps.jpg" alt="Directions Map">
             <p>See <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
+            <img src="babyregistryphoto.jpg" alt="Baby Registry Photo" style="width: 100%; max-width: 600px; margin-top: 20px; border-radius: 10px;">
         </div>
     </div>
 </body>
