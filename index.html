@@ -11,18 +11,19 @@
     <meta property="og:image:width" content="1200"> <!-- Recommended: Width of your image in pixels -->
     <meta property="og:image:height" content="630"> <!-- Recommended: Height of your image in pixels -->
     <!-- End OG Tags -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url('background.jpg'), url('babyregistryphoto.jpg'); /* Multiple backgrounds */
-            background-position: center top, center bottom;
-            background-size: contain, contain;
-            background-repeat: no-repeat, no-repeat;
+            background-image: url('background.jpg'); /* Your background image */
+            background-position: center top;
+            background-size: contain;
+            background-repeat: no-repeat;
             background-color: #000000; /* Black fallback if image fails to load */
             margin: 0;
             padding: 20px;
-            min-height: 200vh; /* Extended height to show both backgrounds */
+            min-height: 100vh; /* Full viewport height */
             font-size: 16pt;
             position: relative;
         }
@@ -35,15 +36,20 @@
             position: relative;
             z-index: 2; /* Ensure content is above background */
         }
-        h1, p {
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 36pt;
+            color: #ffffff;
+            -webkit-text-stroke: 1px #000000;
+            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+            font-weight: bold;
+        }
+        p {
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             font-weight: bold;
             font-size: 18pt;
-        }
-        h1 {
-            font-size: 24pt;
         }
         .iframe-wrapper {
             position: relative;
@@ -77,9 +83,11 @@
         }
         .button {
             background: linear-gradient(to right, lightpink, lightblue);
-            color: #ffffff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             padding: 10px 20px;
-            border-radius: 5px;
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
@@ -126,7 +134,7 @@
         .leaf:nth-child(10) { left: 15%; animation-duration: 19s; animation-delay: 6s; }
         @media (max-width: 768px) {
             body {
-                background-size: contain, contain; /* Contain for mobile */
+                background-size: contain; /* Contain for mobile */
                 background-attachment: scroll;
                 margin-top: 0; /* Removed margin-top to reduce space above */
                 font-size: 24pt; /* Larger base font */
@@ -139,18 +147,18 @@
                 height: 100vh;
             }
             iframe {
-                top: -180px;
-                height: calc(100% + 350px);
+                top: -100px; /* Adjusted for better fit */
+                height: calc(100% + 200px); /* Adjusted height */
                 opacity: 0.8;
             }
-            h1, p {
+            h1 {
+                font-size: 48pt; /* Larger title on mobile */
+                margin-top: 20px;
+            }
+            p {
                 font-size: 28pt; /* Larger on mobile */
                 margin: 5px 0;
                 -webkit-text-stroke: 0.5px #000000;
-            }
-            h1 {
-                font-size: 36pt; /* Bigger title font on mobile */
-                margin-top: 20px;
             }
         }
         body::before {
