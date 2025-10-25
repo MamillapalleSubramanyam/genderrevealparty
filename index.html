@@ -26,7 +26,7 @@
             font-size: 16pt;
         }
         .container {
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background for text */
             padding: 20px;
             border-radius: 10px;
             max-width: 600px;
@@ -115,6 +115,15 @@
         }
     </style>
     <script>
+        var loadCounter = 0;
+
+        function handleIframeLoad() {
+            loadCounter++;
+            if (loadCounter === 2) {
+                document.getElementById('mapOverlay').style.display = 'block';
+            }
+        }
+
         window.addEventListener('resize', function() {
             var iframe = document.querySelector('iframe');
             iframe.style.height = window.innerHeight + 'px';
@@ -125,21 +134,6 @@
             img.onerror = function() {
                 alert('Background image failed to load. Check the file path or upload.');
             };
-
-            // Code to detect form submission via height change
-            var iframe = document.querySelector('iframe');
-            var isFormSubmitted = false;
-            var initialHeight = iframe.offsetHeight;
-            var observer = new MutationObserver(function(mutations) {
-                var currentHeight = iframe.offsetHeight;
-                var heightChangePercent = Math.abs((currentHeight - initialHeight) / initialHeight * 100);
-                if (!isFormSubmitted && heightChangePercent > 40) { // Threshold for significant change
-                    isFormSubmitted = true;
-                    document.getElementById('mapOverlay').style.display = 'block';
-                    observer.disconnect();
-                }
-            });
-            observer.observe(iframe, { attributes: true, childList: true, subtree: true });
         };
     </script>
 </head>
@@ -157,7 +151,7 @@
        
         <!-- Iframe Wrapper for Cropping and Full View -->
         <div class="iframe-wrapper">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSebqMGVXuzvTdipkLNT0fD01rQdwCbW6ZlMBVy09S6hfxgWYQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" onload="handleIframeLoad()">Loading…</iframe>
         </div>
     </div>
 </body>
