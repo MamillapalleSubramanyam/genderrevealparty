@@ -66,7 +66,14 @@
             font-size: 26pt;
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
+            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             margin-bottom: 5px;
+        }
+        #rsvpForm .required {
+            color: red;
+            font-weight: normal;
+            -webkit-text-stroke: 0;
+            text-shadow: none;
         }
         #rsvpForm input[type="text"], #rsvpForm input[type="number"], #rsvpForm textarea {
             width: 100%;
@@ -108,7 +115,8 @@
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
         }
         .button {
-            background: linear-gradient(to right, lightpink, lightblue);
+            background: linear-gradient(to right, lightpink, lightblue, lightpink); /* Repeated for seamless loop */
+            background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -120,6 +128,15 @@
             font-size: 24pt;
             -webkit-text-stroke: 1px #000000;
             text-shadow: none;
+            animation: flashy-gradient 3s linear infinite;
+        }
+        @keyframes flashy-gradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: -100% 0%;
+            }
         }
         #leaves-container {
             position: fixed;
@@ -273,6 +290,22 @@
                     console.error('Error fetching registry:', error);
                 });
         };
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this)
+          }).then(response => {
+            if (response.ok) {
+              alert('RSVP submitted!');
+              this.style.display = 'none'; // Hide form
+              document.getElementById('directions-section').style.display = 'block'; // Show directions
+            } else {
+              alert('Error - try again.');
+            }
+          });
+        });
     </script>
 </head>
 <body>
@@ -290,10 +323,10 @@
        
         <!-- Custom RSVP Form -->
         <form id="rsvpForm" method="POST" action="https://script.google.com/macros/s/AKfycbzL-EpQRRYhWGCtVHyahOkcMfdBvlFvfJRGy61qscTaxRsc2roPELViCww2IJxrEleuOQ/exec" style="width: 100%; max-width: 100%;">
-          <label for="name" style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Your Name *</label>
+          <label for="name" style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Your Name <span class="required">*</span></label>
           <input type="text" id="name" name="name" required style="width: 100%; font-size: 24pt; padding: 10px; margin-bottom: 15px; border: 1px solid #000000; border-radius: 5px; background-color: rgba(255,255,255,0.8);">
 
-          <label style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Can you attend? *</label>
+          <label style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Can you attend? <span class="required">*</span></label>
           <div style="text-align: left; margin-bottom: 15px;">
             <input type="radio" id="yes" name="attend" value="Yes" required style="margin-right: 10px;">
             <label for="yes" style="font-size: 24pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Yes, I'll be there</label><br>
@@ -301,11 +334,8 @@
             <label for="no" style="font-size: 24pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Sorry, can't make it</label>
           </div>
 
-          <label for="people" style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">How many people will attend (including you)? *</label>
+          <label for="people" style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">How many people will attend (including you)? <span class="required">*</span></label>
           <input type="number" id="people" name="people" min="1" required style="width: 100%; font-size: 24pt; padding: 10px; margin-bottom: 15px; border: 1px solid #000000; border-radius: 5px; background-color: rgba(255,255,255,0.8);">
-
-          <label for="notes" style="display: block; font-size: 26pt; color: #ffffff; -webkit-text-stroke: 1px #000000;">Additional Notes</label>
-          <textarea id="notes" name="notes" style="width: 100%; font-size: 24pt; padding: 10px; margin-bottom: 15px; border: 1px solid #000000; border-radius: 5px; background-color: rgba(255,255,255,0.8); height: 150px;"></textarea>
 
           <button type="submit" style="font-size: 26pt; padding: 15px 30px; background-color: deeppink; color: #ffffff; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
         </form>
@@ -319,25 +349,5 @@
             </div>
         </div>
     </div>
-    <script>
-        // Existing script code...
-
-        // Add this for form submission
-        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this)
-          }).then(response => {
-            if (response.ok) {
-              alert('RSVP submitted!');
-              this.style.display = 'none'; // Hide form
-              document.getElementById('directions-section').style.display = 'block'; // Show directions
-            } else {
-              alert('Error - try again.');
-            }
-          });
-        });
-    </script>
 </body>
 </html>
