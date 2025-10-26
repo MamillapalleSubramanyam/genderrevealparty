@@ -19,10 +19,6 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url('background.png'), url('filler.jpeg');
-            background-position: center top, center;
-            background-size: contain, auto;
-            background-repeat: no-repeat, repeat;
             background-color: #000000; /* Black fallback if image fails to load */
             margin: 0;
             padding: 20px;
@@ -106,6 +102,8 @@
             display: inline-block;
             margin-top: 10px;
             font-size: 20pt;
+            -webkit-text-stroke: 0;
+            text-shadow: none;
         }
         #leaves-container {
             position: fixed;
@@ -147,7 +145,6 @@
         .leaf:nth-child(10) { left: 15%; animation-duration: 19s; animation-delay: 6s; }
         @media (max-width: 768px) {
             body {
-                background-size: contain, auto; /* Contain for mobile */
                 background-attachment: scroll;
                 margin-top: 0; /* Removed margin-top to reduce space above */
                 font-size: 24pt; /* Larger base font */
@@ -176,6 +173,19 @@
                 -webkit-text-stroke: 0.5px #000000;
             }
         }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('filler.jpeg');
+            background-size: auto;
+            background-repeat: repeat;
+            opacity: 0.5;
+            z-index: -2;
+        }
         body::before {
             content: '';
             position: fixed;
@@ -183,9 +193,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: inherit;
+            background-image: url('background.png');
+            background-size: contain;
+            background-position: center top;
+            background-repeat: no-repeat;
             z-index: -1;
-            opacity: 0.5;
         }
     </style>
     <script>
@@ -218,7 +230,7 @@
                 .then(html => {
                     let parser = new DOMParser();
                     let doc = parser.parseFromString(html, 'text/html');
-                    let purchasedElements = doc.querySelectorAll('[data-purchasedstatus]');
+                    let purchasedElements = doc.querySelectorAll('.aok-inline-block');
                     let total_purchased = 0;
                     let total_items = 0;
                     purchasedElements.forEach(el => {
