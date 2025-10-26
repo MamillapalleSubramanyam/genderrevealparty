@@ -41,7 +41,7 @@
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             font-weight: bold;
             font-size: 32pt;
-            margin-bottom: 0;
+            margin-bottom: 20px; /* Increased gap */
         }
         .calligraphy {
             font-family: 'Great Vibes', cursive;
@@ -131,6 +131,9 @@
                 opacity: 0;
             }
             2% {
+                opacity: 0;
+            }
+            5% {
                 opacity: 0.8;
             }
             100% {
@@ -195,17 +198,20 @@
 
         var pileOffset = 0;
 
-        function addLeaf() {
-            var leaf = document.createElement('div');
-            leaf.className = 'leaf';
-            leaf.style.left = Math.random() * 100 + '%';
-            leaf.style.fontSize = (20 + Math.random() * 20) + 'px';
-            leaf.style.animationDuration = (10 + Math.random() * 20) + 's'; // Slower fall: 10-30s
-            leaf.style.animationDelay = Math.random() * 5 + 's';
-            leaf.style.setProperty('--end-transform', `translateY(calc(98vh - ${pileOffset}vh)) rotate(360deg)`);
-            document.getElementById('leaves-container').appendChild(leaf);
-            pileOffset += 0.1; // Increment for next leaf to stop 0.1vh higher
-            if (pileOffset > 10) pileOffset = 0; // Reset after a point to avoid too high pile
+        function addLeafBatch() {
+            var batchSize = Math.floor(Math.random() * 11) + 10; // 10-20 leaves
+            for (var i = 0; i < batchSize; i++) {
+                var leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                leaf.style.left = Math.random() * 100 + '%';
+                leaf.style.fontSize = (20 + Math.random() * 20) + 'px';
+                leaf.style.animationDuration = (10 + Math.random() * 20) + 's'; // Slower fall: 10-30s
+                leaf.style.animationDelay = Math.random() * 5 + 's';
+                leaf.style.setProperty('--end-transform', `translateY(calc(98vh - ${pileOffset}vh)) rotate(360deg)`);
+                document.getElementById('leaves-container').appendChild(leaf);
+                pileOffset += 0.02; // Finer increment for piling
+                if (pileOffset > 10) pileOffset = 0; // Reset after a point to avoid too high pile
+            }
         }
 
         window.addEventListener('resize', function() {
@@ -221,9 +227,8 @@
                 alert('Background image failed to load. Check the file path or upload.');
             };
 
-            for (var i = 0; i < 1000; i++) {
-                addLeaf();
-            }
+            addLeafBatch(); // Initial batch
+            setInterval(addLeafBatch, 10000); // Add new batch every 10 seconds
 
             // Fetch purchased items
             fetch('https://cors-anywhere.herokuapp.com/https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR')
