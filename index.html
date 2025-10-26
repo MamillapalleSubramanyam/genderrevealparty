@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <title>Subra and Anuhya's Baby shower party!</title>
-    <meta property="og:title" content="Subra and Anuhya's Baby shower party!">
+    
+<meta property="og:title" content="Subra and Anuhya's Baby shower party!">
     <meta property="og:description" content="Join us on November 29th, 2025 at 6 PM for our baby shower! RSVP here.">
-    <meta property="og:image" content="https://anusubbu.com/background.png"> <meta property="og:url" content="https://anusubbu.com">
+    <meta property="og:image" content="https://anusubbu.com/background.png"> 
+<meta property="og:url" content="https://anusubbu.com">
     <meta property="og:type" content="website">
-    <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <meta property="og:image:width" content="1200"> 
+<meta property="og:image:height" content="630"> 
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         html {
             background-color: transparent;
@@ -56,21 +60,18 @@
             width: 100%;
             max-width: 100%;
         }
-        /* START EDITS FOR QUESTION FONT AND INLINE RADIO BUTTONS */
+        
+        /* START: REVERTED FONT STYLES */
         #rsvpForm label {
-            /* Keep existing styles, but add Great Vibes font */
-            display: block; /* Kept display block for main labels, but will adjust for radio buttons */
+            display: block; 
             font-size: 26pt;
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             margin-bottom: 5px;
-            font-family: 'Great Vibes', cursive; /* Apply calligraphy font */
-            font-weight: normal; /* Great Vibes is not usually bold */
-            -webkit-text-stroke: 0; /* Remove stroke for calligraphy */
-            text-shadow: none; /* Remove shadow for calligraphy */
-            color: deeppink; /* Match color of 'Baby Shower!' */
+            /* Removed 'Great Vibes' font styles to match the 'p' tag font */
         }
+        
         #rsvpForm .radio-group {
             display: flex; /* Use flexbox to keep label and radio buttons inline */
             align-items: center; /* Vertically align items */
@@ -78,22 +79,24 @@
             justify-content: center; /* Center the radio group */
             flex-wrap: wrap; /* Allow wrapping on smaller screens */
         }
+        
         #rsvpForm .radio-group label {
             display: inline-flex; /* Make label and input act as inline-block for alignment */
             align-items: center;
             margin-right: 20px; /* Space between radio options */
             font-size: 24pt; /* Adjusted for radio options */
-            font-family: Arial, sans-serif; /* Keep regular font for radio options if desired, or 'Great Vibes' */
+            font-family: Arial, sans-serif; /* Standard font */
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
         }
+        /* END: REVERTED FONT STYLES */
+        
         #rsvpForm input[type="radio"] {
             margin-right: 10px;
             transform: scale(1.5); /* Make radio buttons a bit bigger */
             vertical-align: middle; /* Align with text */
         }
-        /* END EDITS FOR QUESTION FONT AND INLINE RADIO BUTTONS */
 
         #rsvpForm .required {
             color: red;
@@ -133,51 +136,36 @@
             max-width: 600px;
             border-radius: 10px;
         }
+        
+        /* START: REVERTED BUTTON STYLES */
         .registry-info p {
+            /* Reverted to original state, no box styles */
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
-            /* Added padding for the background effect */
-            padding: 10px 15px; /* Adjust padding as needed */
-            margin: 20px auto; /* Center the paragraph and give vertical space */
-            display: inline-block; /* Make it fit content width for background */
-            border-radius: 10px; /* Slightly rounded corners for the background box */
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.7), 0 0 15px rgba(173, 216, 230, 0.7); /* Pink and Blue Glow */
-            background: rgba(255, 255, 255, 0.1); /* Slight translucent white background */
-            /* Remove text-stroke and text-shadow as the background box will provide visibility */
-            -webkit-text-stroke: 0;
-            text-shadow: none;
-        }
-        .registry-info p a.button { /* Target the link specifically */
-            background: none; /* Remove flashy gradient from the text */
-            -webkit-background-clip: unset;
-            -webkit-text-fill-color: #ffffff; /* Make text white again */
-            background-clip: unset;
-            color: #ffffff; /* Ensure text is white */
-            text-decoration: underline; /* Keep underline for link appearance */
-            font-weight: bold; /* Make the text bold */
-            animation: none; /* Remove animation from the text */
-            -webkit-text-stroke: 1px #000000; /* Add stroke back to link text if desired for contrast */
-            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000; /* Add shadow back to link text */
         }
 
-        /* Original .button styles - keep if you want other buttons to flash, but override for registry link */
         .button {
+            /* This now applies the gradient to the BACKGROUND of the 'a' tag */
             background: linear-gradient(to right, lightpink, lightblue, lightpink); /* Repeated for seamless loop */
             background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
+            color: #ffffff; /* Make text white */
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
             margin-top: 10px;
             font-size: 24pt;
-            -webkit-text-stroke: 1px #000000;
-            text-shadow: none;
+            -webkit-text-stroke: 1px #000000; /* Stroke on the white text */
             animation: flashy-gradient 3s linear infinite;
+            
+            /* These create the "box" */
+            padding: 10px 15px;
+            border-radius: 5px;
+            
+            /* Removed text-clip properties */
         }
+        /* END: REVERTED BUTTON STYLES */
+        
         @keyframes flashy-gradient {
             0% {
                 background-position: 0% 0%;
@@ -254,12 +242,9 @@
                 font-size: 56pt; /* Larger on mobile */
             }
             p {
-                font-size: 36pt; /* Larger on mobile */
+                font-size: 36pt; /* Larger mobile */
                 margin: 2px 0; /* Smaller line gap */
                 -webkit-text-stroke: 0.5px #000000;
-            }
-            .registry-info p {
-                padding: 8px 10px; /* Adjust padding for mobile */
             }
         }
         body::before {
@@ -290,12 +275,16 @@
         <p>6th Floor of 15441 NE, Turing St, Redmond WA 98052</p>
         <p>Please find parking at near by Overlake Park N' Ride</p>
         
-        <form id="rsvpForm" method="POST" action="https://script.google.com/macros/s/AKfycbzL-EpQRRYhWGCtVHyahOkcMfdBvlFvfJRGy61qscTaxRsc2roPELViCww2IJxrEleuOQ/exec" style="width: 100%; max-width: 100%;">
-          <label for="name">Your Name <span class="required">*</span></label>
+        
+<form id="rsvpForm" method="POST" action="https://script.google.com/macros/s/AKfycbzL-EpQRRYhWGCtVHyahOkcMfdBvlFvfJRGy61qscTaxRsc2roPELViCww2IJxrEleuOQ/exec" style="width: 100%; max-width: 100%;">
+          
+<label for="name">Your Name <span class="required">*</span></label>
           <input type="text" id="name" name="name" required>
 
-          <label>Can you attend? <span class="required">*</span></label>
-          <div class="radio-group"> <label for="yes">
+          
+<label>Can you attend? <span class="required">*</span></label>
+          <div class="radio-group"> 
+<label for="yes">
               <input type="radio" id="yes" name="attend" value="Yes" required>
               Yes, I'll be there
             </label>
@@ -308,14 +297,15 @@
           <label for="people">How many people will attend (including you)? <span class="required">*</span></label>
           <input type="number" id="people" name="people" min="1" required>
 
-          <button type="submit">Submit</button>
+          <button type-"submit">Submit</button>
         </form>
 
         <div id="directions-section">
             <p>Directions for parking and walking directions to the event building:</p>
             <img src="https://anusubbu.com/maps.jpg" alt="Directions Map">
             <div class="registry-info">
-                <p>Link to <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
+                
+<p>Link to <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
                 <p id="purchased">Loading...</p>
             </div>
         </div>
