@@ -120,7 +120,7 @@
             font-size: 24px;
             color: #ff7518; /* Orange fall color */
             animation: fall linear forwards;
-            opacity: 0.8;
+            opacity: 0;
         }
         .leaf::before {
             content: '🍁';
@@ -128,9 +128,14 @@
         @keyframes fall {
             0% {
                 transform: translateY(-100%) rotate(0deg);
+                opacity: 0;
+            }
+            2% {
+                opacity: 0.8;
             }
             100% {
-                transform: translateY(100vh) rotate(360deg);
+                transform: var(--end-transform);
+                opacity: 0.8;
             }
         }
         @media (max-width: 768px) {
@@ -188,14 +193,19 @@
             }
         }
 
+        var pileOffset = 0;
+
         function addLeaf() {
             var leaf = document.createElement('div');
             leaf.className = 'leaf';
             leaf.style.left = Math.random() * 100 + '%';
             leaf.style.fontSize = (20 + Math.random() * 20) + 'px';
-            leaf.style.animationDuration = (5 + Math.random() * 10) + 's';
+            leaf.style.animationDuration = (10 + Math.random() * 20) + 's'; // Slower fall: 10-30s
             leaf.style.animationDelay = Math.random() * 5 + 's';
+            leaf.style.setProperty('--end-transform', `translateY(calc(98vh - ${pileOffset}vh)) rotate(360deg)`);
             document.getElementById('leaves-container').appendChild(leaf);
+            pileOffset += 0.1; // Increment for next leaf to stop 0.1vh higher
+            if (pileOffset > 10) pileOffset = 0; // Reset after a point to avoid too high pile
         }
 
         window.addEventListener('resize', function() {
