@@ -61,7 +61,7 @@
             max-width: 100%;
         }
         
-        /* START: REVERTED FONT STYLES */
+        /* Font Thickness Fix: Added font-weight: bold; */
         #rsvpForm label {
             display: block; 
             font-size: 26pt;
@@ -69,33 +69,33 @@
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             margin-bottom: 5px;
-            /* Removed 'Great Vibes' font styles to match the 'p' tag font */
+            font-weight: bold; 
         }
         
         #rsvpForm .radio-group {
-            display: flex; /* Use flexbox to keep label and radio buttons inline */
-            align-items: center; /* Vertically align items */
+            display: flex; 
+            align-items: center; 
             margin-bottom: 15px;
-            justify-content: center; /* Center the radio group */
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center; 
+            flex-wrap: wrap; 
         }
         
         #rsvpForm .radio-group label {
-            display: inline-flex; /* Make label and input act as inline-block for alignment */
+            display: inline-flex; 
             align-items: center;
-            margin-right: 20px; /* Space between radio options */
-            font-size: 24pt; /* Adjusted for radio options */
-            font-family: Arial, sans-serif; /* Standard font */
+            margin-right: 20px; 
+            font-size: 24pt; 
+            font-family: Arial, sans-serif; 
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+            font-weight: bold; 
         }
-        /* END: REVERTED FONT STYLES */
         
         #rsvpForm input[type="radio"] {
             margin-right: 10px;
-            transform: scale(1.5); /* Make radio buttons a bit bigger */
-            vertical-align: middle; /* Align with text */
+            transform: scale(1.5); 
+            vertical-align: middle; 
         }
 
         #rsvpForm .required {
@@ -103,17 +103,19 @@
             font-weight: normal;
             -webkit-text-stroke: 0;
             text-shadow: none;
-            font-family: Arial, sans-serif; /* Keep regular font for required asterisk */
+            font-family: Arial, sans-serif; 
         }
-        #rsvpForm input[type="text"], #rsvpForm input[type="number"], #rsvpForm textarea {
+        
+        #rsvpForm input[type="text"], #rsvpForm input[type="number"], #rsvpForm textarea, #rsvpForm select {
             width: 100%;
             font-size: 24pt;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #000000;
             border-radius: 5px;
-            background-color: rgba(255,255,255,0.8); /* Semi-transparent for readability */
+            background-color: rgba(255,255,255,0.8); 
         }
+        
         #rsvpForm button {
             font-size: 26pt;
             padding: 15px 30px;
@@ -137,43 +139,37 @@
             border-radius: 10px;
         }
         
-        /* START: REVERTED BUTTON STYLES */
         .registry-info p {
-            /* Reverted to original state, no box styles */
             color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
         }
 
         .button {
-            /* This now applies the gradient to the BACKGROUND of the 'a' tag */
-            background: linear-gradient(to right, lightpink, lightblue, lightpink); /* Repeated for seamless loop */
+            background: linear-gradient(to right, lightpink, lightblue, lightpink); 
             background-size: 200% 100%;
-            color: #ffffff; /* Make text white */
+            color: #ffffff; 
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
             margin-top: 10px;
             font-size: 24pt;
-            -webkit-text-stroke: 1px #000000; /* Stroke on the white text */
+            -webkit-text-stroke: 1px #000000; 
             animation: flashy-gradient 3s linear infinite;
-            
-            /* These create the "box" */
             padding: 10px 15px;
             border-radius: 5px;
-            
-            /* Removed text-clip properties */
         }
-        /* END: REVERTED BUTTON STYLES */
         
+        /* Smooth Animation Pulse Fix: Changed 100% background-position to -200% */
         @keyframes flashy-gradient {
             0% {
                 background-position: 0% 0%;
             }
             100% {
-                background-position: -100% 0%;
+                background-position: -200% 0%; 
             }
         }
+        
         #leaves-container {
             position: fixed;
             top: 0;
@@ -181,13 +177,13 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 3; /* Highest layer */
+            z-index: 3; 
             overflow: hidden;
         }
         .leaf {
             position: absolute;
             font-size: 24px;
-            color: #ff7518; /* Orange fall color */
+            color: #ff7518; 
             animation: fall linear forwards;
             opacity: 0;
         }
@@ -213,8 +209,8 @@
         @media (max-width: 768px) {
             body {
                 background-attachment: scroll;
-                margin-top: 0; /* Removed margin-top to reduce space above */
-                font-size: 28pt; /* Larger base font */
+                margin-top: 0; 
+                font-size: 28pt; 
             }
             .container {
                 max-width: 100%;
@@ -223,27 +219,27 @@
             #rsvpForm label {
                 font-size: 30pt;
             }
-            /* Adjust radio group for mobile if needed */
+            
             #rsvpForm .radio-group {
-                flex-direction: column; /* Stack vertically on small screens */
-                align-items: flex-start; /* Align left */
+                flex-direction: column; 
+                align-items: flex-start; 
             }
             #rsvpForm .radio-group label {
-                margin-right: 0; /* Remove horizontal margin */
-                margin-bottom: 10px; /* Add vertical margin */
+                margin-right: 0; 
+                margin-bottom: 10px; 
             }
-            #rsvpForm input[type="text"], #rsvpForm input[type="number"], #rsvpForm textarea, #rsvpForm button {
-                font-size: 30pt;
+            #rsvpForm input[type="text"], #rsvpForm input[type="number"], #rsvpForm textarea, #rsvpForm button, #rsvpForm select {
+                font-size: 30pt; 
             }
             h1 {
-                font-size: 40pt; /* Adjusted */
+                font-size: 40pt; 
             }
             .calligraphy {
-                font-size: 56pt; /* Larger on mobile */
+                font-size: 56pt; 
             }
             p {
-                font-size: 36pt; /* Larger mobile */
-                margin: 2px 0; /* Smaller line gap */
+                font-size: 36pt; 
+                margin: 2px 0; 
                 -webkit-text-stroke: 0.5px #000000;
             }
         }
@@ -294,10 +290,16 @@
             </label>
           </div>
 
-          <label for="people">How many people will attend (including you)? <span class="required">*</span></label>
-          <input type="number" id="people" name="people" min="1" required>
+          <label for="people">How many people will attend with you?</label>
+          <select id="people" name="people">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          
 
-          <button type-"submit">Submit</button>
+          <button type="submit">Submit</button>
         </form>
 
         <div id="directions-section">
@@ -337,6 +339,7 @@
         });
         addLeafBatch(); // Initial batch
         setInterval(addLeafBatch, 10000); // Add new batch every 10 seconds
+        
         // Fetch purchased items
         fetch('https://cors-anywhere.herokuapp.com/https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR')
             .then(response => response.text())
@@ -346,25 +349,40 @@
                 let purchasedElements = doc.querySelectorAll('.aok-inline-block');
                 let total_purchased = 0;
                 let total_items = 0;
+                
+                // Attempt 1: Find the "X of Y" purchased phrase (most reliable)
                 purchasedElements.forEach(el => {
                     let text = el.textContent.trim();
-                    let match = text.match(/(\d+) of (\d+) Purchased/);
+                    let match = text.match(/(\d+) of (\d+)/i);
                     if (match) {
                         total_purchased += parseInt(match[1]);
                         total_items += parseInt(match[2]);
                     }
                 });
+                
+                // Attempt 2: Fallback to counting all known item elements if Attempt 1 fails.
                 if (total_items === 0) {
-                    // Fallback to counting items
                     let items = doc.querySelectorAll('.br-item');
-                    total_items = items.length;
+                    if (items.length > 0) {
+                        total_items = items.length;
+                        total_purchased = 0; 
+                    }
                 }
+                
+                // Attempt 3: Final fallback to user-provided static total (45) if dynamic scraping failed completely
+                if (total_items === 0) {
+                    total_items = 45; 
+                    total_purchased = 0;
+                }
+                
                 document.getElementById('purchased').textContent = `${total_purchased}/${total_items} Items purchased`;
             })
             .catch(error => {
-                document.getElementById('purchased').textContent = 'Failed to load purchased items';
+                // If fetching fails completely (e.g., CORS proxy down), set a default.
+                document.getElementById('purchased').textContent = '0/45 Items purchased'; // Use the static fallback here too
                 console.error('Error fetching registry:', error);
             });
+            
         document.getElementById('rsvpForm').addEventListener('submit', function(event) {
           event.preventDefault();
           fetch(this.action, {
