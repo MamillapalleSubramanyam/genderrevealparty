@@ -150,7 +150,7 @@
         }
         .leaf {
             position: absolute;
-            font-size: 24px;
+            font-size: 24pt;
             color: #ff7518; /* Orange fall color */
             animation: fall linear forwards;
             opacity: 0;
@@ -217,16 +217,6 @@
         }
     </style>
     <script>
-        var loadCounter = 0;
-
-        function handleIframeLoad() {
-            loadCounter++;
-            if (loadCounter === 2) {
-                document.querySelector('.iframe-wrapper').style.display = 'none';
-                document.getElementById('directions-section').style.display = 'block';
-            }
-        }
-
         var pileOffset = 0;
 
         function addLeafBatch() {
@@ -257,10 +247,8 @@
             img.onerror = function() {
                 alert('Background image failed to load. Check the file path or upload.');
             };
-
             addLeafBatch(); // Initial batch
             setInterval(addLeafBatch, 10000); // Add new batch every 10 seconds
-
             // Fetch purchased items
             fetch('https://cors-anywhere.herokuapp.com/https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR')
                 .then(response => response.text())
@@ -290,21 +278,25 @@
                     console.error('Error fetching registry:', error);
                 });
         };
-
         document.getElementById('rsvpForm').addEventListener('submit', function(event) {
           event.preventDefault();
           fetch(this.action, {
             method: 'POST',
             body: new FormData(this)
-          }).then(response => {
-            if (response.ok) {
-              alert('RSVP submitted!');
-              this.style.display = 'none'; // Hide form
-              document.getElementById('directions-section').style.display = 'block'; // Show directions
-            } else {
+          }).then(response => response.text())
+            .then(text => {
+              if (text === 'Success') {
+                alert('RSVP submitted!');
+                this.style.display = 'none'; // Hide form
+                document.getElementById('directions-section').style.display = 'block'; // Show directions
+              } else {
+                alert('Error - try again.');
+              }
+            })
+            .catch(error => {
               alert('Error - try again.');
-            }
-          });
+              console.error('Submit error:', error);
+            });
         });
     </script>
 </head>
