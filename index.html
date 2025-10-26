@@ -23,10 +23,11 @@
             margin: 0;
             padding: 20px;
             min-height: 100vh; /* Full viewport height */
-            font-size: 20pt;
+            font-size: 24pt;
             position: relative;
         }
         .container {
+            background-color: #000000;
             padding: 20px;
             border-radius: 10px;
             max-width: 600px;
@@ -35,26 +36,26 @@
             z-index: 2; /* Ensure content is above background */
         }
         h1 {
-            color: #000000;
+            color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             font-weight: bold;
-            font-size: 28pt;
+            font-size: 32pt;
             margin-bottom: 0;
         }
         .calligraphy {
             font-family: 'Great Vibes', cursive;
-            font-size: 36pt;
+            font-size: 40pt;
             color: deeppink;
             -webkit-text-stroke: 0;
             text-shadow: none;
         }
         p {
-            color: #000000;
+            color: #ffffff;
             -webkit-text-stroke: 1px #000000;
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             font-weight: bold;
-            font-size: 22pt;
+            font-size: 26pt;
         }
         .iframe-wrapper {
             position: relative;
@@ -100,7 +101,7 @@
             font-weight: 900;
             display: inline-block;
             margin-top: 10px;
-            font-size: 20pt;
+            font-size: 24pt;
             -webkit-text-stroke: 0;
             text-shadow: none;
         }
@@ -118,7 +119,7 @@
             position: absolute;
             font-size: 24px;
             color: #ff7518; /* Orange fall color */
-            animation: fall linear forwards;
+            animation: fall linear infinite;
             opacity: 0.8;
         }
         .leaf::before {
@@ -129,7 +130,7 @@
                 transform: translateY(-100%) rotate(0deg);
             }
             100% {
-                transform: translateY(calc(100vh - 50px)) translateX(calc(100vw - 100px)) rotate(360deg);
+                transform: translateY(100vh) rotate(360deg);
             }
         }
         .leaf:nth-child(1) { left: 10%; animation-duration: 10s; animation-delay: 0s; }
@@ -156,18 +157,18 @@
                 height: 100vh;
             }
             iframe {
-                top: -100px; /* Adjusted for better fit */
-                height: calc(100% + 200px); /* Adjusted height */
+                top: -50px; /* Adjusted for better fit */
+                height: calc(100% + 100px); /* Adjusted height */
                 opacity: 0.8;
             }
             h1 {
-                font-size: 36pt; /* Adjusted */
+                font-size: 40pt; /* Adjusted */
             }
             .calligraphy {
-                font-size: 54pt; /* Larger on mobile */
+                font-size: 56pt; /* Larger on mobile */
             }
             p {
-                font-size: 32pt; /* Larger on mobile */
+                font-size: 36pt; /* Larger on mobile */
                 margin: 2px 0; /* Smaller line gap */
                 -webkit-text-stroke: 0.5px #000000;
             }
