@@ -66,9 +66,9 @@
         #rsvpForm {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 20px; /* Space before arrow button */
         }
         
+        /* Font Thickness Fix: Added font-weight: bold; */
         #rsvpForm label {
             display: block; 
             font-size: 26pt;
@@ -123,8 +123,7 @@
             background-color: rgba(255,255,255,0.8); 
         }
         
-        /* ORIGINAL SUBMIT BUTTON STYLE */
-        #rsvpForm button[type="submit"] {
+        #rsvpForm button {
             font-size: 26pt;
             padding: 15px 30px;
             background-color: deeppink;
@@ -132,78 +131,11 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 15px; /* Space below submit button */
         }
-        
-        /* ARROW BUTTON STYLES (Always visible and functional as a link) */
-        #directionsLink {
-            display: inline-block;
-            text-decoration: none;
-            margin-top: 15px;
-            margin-bottom: 30px; /* Space after the button */
-        }
-        
-        .arrow-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22pt; 
-            font-weight: bold;
-            color: deeppink;
-            /* Padding adjustment to make space for the arrow INSIDE the box */
-            padding: 15px 50px 15px 40px; 
-            
-            background-color: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px); 
-            
-            border: 2px solid black; 
-            position: relative;
-            border-radius: 5px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            
-            /* Remove margin-right from previous attempt */
-            margin-right: 0; 
-        }
-
-        /* Black arrow border */
-        .arrow-button::after {
-            content: '';
-            position: absolute;
-            /* Move arrow to the right, inside the box, with margin */
-            right: 5px; 
-            top: 50%;
-            width: 0;
-            height: 0;
-            border-top: 17px solid transparent;
-            border-bottom: 17px solid transparent;
-            border-left: 17px solid black; 
-            transform: translateY(-50%);
-            z-index: 10;
-        }
-
-        /* White/Glassy arrow fill */
-        .arrow-button::before {
-            content: '';
-            position: absolute;
-            /* Positioned inside the black border, slightly to the left for border effect */
-            right: 7px; 
-            top: 50%;
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 15px solid rgba(255, 255, 255, 0.7); 
-            transform: translateY(-50%);
-            z-index: 11;
-        }
-        
         #directions-section {
             display: none;
             text-align: center;
             margin-top: 20px;
-            padding-top: 30px; 
-            border-top: 1px solid #ffffff; 
         }
         #directions-section p {
             margin-bottom: 10px;
@@ -235,6 +167,7 @@
             border-radius: 5px;
         }
         
+        /* Smooth Animation Pulse Fix: Changed 100% background-position to -200% */
         @keyframes flashy-gradient {
             0% {
                 background-position: 0% 0%;
@@ -316,18 +249,6 @@
                 margin: 2px 0; 
                 -webkit-text-stroke: 0.5px #000000;
             }
-            /* Adjust arrow button for mobile */
-            .arrow-button {
-                font-size: 28pt;
-                padding: 20px 60px 20px 50px; /* Increased right padding for internal arrow */
-            }
-            /* Mobile arrow positioning */
-            .arrow-button::after {
-                right: 5px; 
-            }
-            .arrow-button::before {
-                right: 7px; 
-            }
         }
         body::before {
             content: '';
@@ -384,19 +305,13 @@
             <option value="3">3</option>
           </select>
           
-          <button type="submit">Submit RSVP</button>
+
+          <button type="submit">Submit</button>
         </form>
-
-        <a id="directionsLink" href="#directions-section">
-            <span class="arrow-button">
-                Directions and Registry
-            </span>
-        </a>
-
 
         <div id="directions-section">
             <p>Directions for parking and walking directions to the event building:</p>
-            <img src="https://anusubbu.com/maps.png" alt="Directions Map"> 
+            <img src="https://anusubbu.com/maps.jpg" alt="Directions Map">
             <div class="registry-info">
                 
 <p>Link to <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
@@ -405,45 +320,6 @@
         </div>
     </div>
     <script>
-        // --- JAVASCRIPT ---
-        
-        // Function to show the directions/registry section after a successful RSVP
-        function showDirectionsSection() {
-            // Hide the RSVP form and the arrow link
-            document.getElementById('rsvpForm').style.display = 'none';
-            document.getElementById('directionsLink').style.display = 'none';
-            
-            // Show the directions section
-            const directionsSection = document.getElementById('directions-section');
-            directionsSection.style.display = 'block';
-            
-            // Scroll to the directions section for a smooth transition
-            directionsSection.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // ORIGINAL RSVP SUBMISSION LOGIC MODIFIED TO CALL showDirectionsSection()
-        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          
-          fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this)
-          }).then(response => response.text())
-            .then(text => {
-              if (text === 'Success') {
-                alert('RSVP submitted! Thank you.');
-                showDirectionsSection(); // Now handles hiding form/link and showing directions
-              } else {
-                alert('Error submitting RSVP - try again. Response: ' + text);
-              }
-            })
-            .catch(error => {
-                alert('Error submitting RSVP - try again.');
-                console.error('Submit error:', error);
-            });
-        });
-        
-        // --- Existing Code for Leaves and Registry Fetch ---
         var pileOffset = 0;
 
         function addLeafBatch() {
@@ -514,6 +390,26 @@
                 console.error('Error fetching registry:', error);
             });
             
+        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this)
+          }).then(response => response.text())
+            .then(text => {
+              if (text === 'Success') {
+                alert('RSVP submitted!');
+                this.style.display = 'none'; // Hide form
+                document.getElementById('directions-section').style.display = 'block'; // Show directions
+              } else {
+                alert('Error - try again. Response: ' + text);
+              }
+            })
+            .catch(error => {
+                alert('Error - try again.');
+                console.error('Submit error:', error);
+            });
+        });
     </script>
 </body>
 </html>
