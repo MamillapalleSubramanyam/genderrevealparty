@@ -25,10 +25,10 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: transparent; /* Removed black fallback */
+            background-color: transparent;
             margin: 0;
             padding: 20px;
-            min-height: 100vh; /* Full viewport height */
+            min-height: 100vh;
             font-size: 24pt;
             position: relative;
         }
@@ -39,7 +39,7 @@
             max-width: 600px;
             margin: 0 auto;
             position: relative;
-            z-index: 2; /* Ensure content is above background */
+            z-index: 2;
         }
         h1 {
             color: #ffffff;
@@ -47,7 +47,7 @@
             text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
             font-weight: bold;
             font-size: 32pt;
-            margin-bottom: 20px; /* Increased gap */
+            margin-bottom: 20px;
         }
         .calligraphy {
             font-family: 'Great Vibes', cursive;
@@ -68,7 +68,6 @@
             max-width: 100%;
         }
         
-        /* Font Thickness Fix: Added font-weight: bold; */
         #rsvpForm label {
             display: block; 
             font-size: 26pt;
@@ -132,6 +131,19 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
+        #directionsBtn {
+            font-size: 20pt;
+            padding: 12px 25px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
         #directions-section {
             display: none;
             text-align: center;
@@ -167,7 +179,6 @@
             border-radius: 5px;
         }
         
-        /* Smooth Animation Pulse Fix: Changed 100% background-position to -200% */
         @keyframes flashy-gradient {
             0% {
                 background-position: 0% 0%;
@@ -237,6 +248,9 @@
             }
             #rsvpForm input[type="text"], #rsvpForm input[type="number"], #rsvpForm textarea, #rsvpForm button, #rsvpForm select {
                 font-size: 30pt; 
+            }
+            #directionsBtn {
+                font-size: 24pt;
             }
             h1 {
                 font-size: 40pt; 
@@ -308,14 +322,16 @@
 
           <button type="submit">Submit</button>
         </form>
+        
+        <button id="directionsBtn" type="button">Directions and Registry →</button>
 
         <div id="directions-section">
             <p>Directions for parking and walking directions to the event building:</p>
             <img src="https://anusubbu.com/maps.jpg" alt="Directions Map">
             <div class="registry-info">
                 
-<p>Link to <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
-                <p id="purchased">Loading...</p>
+                <p>Link to <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
+                <p id="countdown">Arrival in <span id="weeksRemaining">...</span> weeks</p>
             </div>
         </div>
     </div>
@@ -323,18 +339,18 @@
         var pileOffset = 0;
 
         function addLeafBatch() {
-            var batchSize = Math.floor(Math.random() * 11) + 10; // 10-20 leaves
+            var batchSize = Math.floor(Math.random() * 11) + 10;
             for (var i = 0; i < batchSize; i++) {
                 var leaf = document.createElement('div');
                 leaf.className = 'leaf';
                 leaf.style.left = Math.random() * 100 + '%';
                 leaf.style.fontSize = (20 + Math.random() * 20) + 'px';
-                leaf.style.animationDuration = (10 + Math.random() * 20) + 's'; // Slower fall: 10-30s
+                leaf.style.animationDuration = (10 + Math.random() * 20) + 's';
                 leaf.style.animationDelay = Math.random() * 5 + 's';
                 leaf.style.setProperty('--end-transform', `translateY(calc(98vh - ${pileOffset}vh)) rotate(360deg)`);
                 document.getElementById('leaves-container').appendChild(leaf);
-                pileOffset += 0.02; // Finer increment for piling
-                if (pileOffset > 10) pileOffset = 0; // Reset after a point to avoid too high pile
+                pileOffset += 0.02;
+                if (pileOffset > 10) pileOffset = 0;
             }
         }
 
@@ -344,51 +360,20 @@
                 iframe.style.height = window.innerHeight + 'px';
             }
         });
-        addLeafBatch(); // Initial batch
-        setInterval(addLeafBatch, 10000); // Add new batch every 10 seconds
+        addLeafBatch();
+        setInterval(addLeafBatch, 10000);
         
-        // Fetch purchased items
-        fetch('https://cors-anywhere.herokuapp.com/https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR')
-            .then(response => response.text())
-            .then(html => {
-                let parser = new DOMParser();
-                let doc = parser.parseFromString(html, 'text/html');
-                let purchasedElements = doc.querySelectorAll('.aok-inline-block');
-                let total_purchased = 0;
-                let total_items = 0;
-                
-                // Attempt 1: Find the "X of Y" purchased phrase (most reliable)
-                purchasedElements.forEach(el => {
-                    let text = el.textContent.trim();
-                    let match = text.match(/(\d+) of (\d+)/i);
-                    if (match) {
-                        total_purchased += parseInt(match[1]);
-                        total_items += parseInt(match[2]);
-                    }
-                });
-                
-                // Attempt 2: Fallback to counting all known item elements if Attempt 1 fails.
-                if (total_items === 0) {
-                    let items = doc.querySelectorAll('.br-item');
-                    if (items.length > 0) {
-                        total_items = items.length;
-                        total_purchased = 0; 
-                    }
-                }
-                
-                // Attempt 3: Final fallback to user-provided static total (45) if dynamic scraping failed completely
-                if (total_items === 0) {
-                    total_items = 45; 
-                    total_purchased = 0;
-                }
-                
-                document.getElementById('purchased').textContent = `${total_purchased}/${total_items} Items purchased`;
-            })
-            .catch(error => {
-                // If fetching fails completely (e.g., CORS proxy down), set a default.
-                document.getElementById('purchased').textContent = '0/45 Items purchased'; // Use the static fallback here too
-                console.error('Error fetching registry:', error);
-            });
+        // Calculate weeks until February 12th, 2026
+        function updateCountdown() {
+            const babyArrival = new Date('2026-02-12T00:00:00');
+            const now = new Date();
+            const diffTime = babyArrival - now;
+            const diffWeeks = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 7));
+            document.getElementById('weeksRemaining').textContent = diffWeeks;
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 3600000); // Update every hour
             
         document.getElementById('rsvpForm').addEventListener('submit', function(event) {
           event.preventDefault();
@@ -399,8 +384,9 @@
             .then(text => {
               if (text === 'Success') {
                 alert('RSVP submitted!');
-                this.style.display = 'none'; // Hide form
-                document.getElementById('directions-section').style.display = 'block'; // Show directions
+                this.style.display = 'none';
+                document.getElementById('directionsBtn').style.display = 'none';
+                document.getElementById('directions-section').style.display = 'block';
               } else {
                 alert('Error - try again. Response: ' + text);
               }
@@ -409,6 +395,13 @@
                 alert('Error - try again.');
                 console.error('Submit error:', error);
             });
+        });
+        
+        // Directions button click handler
+        document.getElementById('directionsBtn').addEventListener('click', function() {
+            document.getElementById('rsvpForm').style.display = 'none';
+            this.style.display = 'none';
+            document.getElementById('directions-section').style.display = 'block';
         });
     </script>
 </body>
