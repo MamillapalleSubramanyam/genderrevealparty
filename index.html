@@ -144,6 +144,18 @@
             font-weight: bold;
         }
         
+        #backToRsvpBtn {
+            font-size: 20pt;
+            padding: 12px 25px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
         #directions-section {
             display: none;
             text-align: center;
@@ -252,6 +264,9 @@
             #directionsBtn {
                 font-size: 24pt;
             }
+            #backToRsvpBtn {
+                font-size: 24pt;
+            }
             h1 {
                 font-size: 40pt; 
             }
@@ -332,6 +347,7 @@
                 
                 <p>Link to <a href="https://www.amazon.com/baby-reg/anuhya-kurumaddali-february-2026-bothell/3HNCLW6MY2BOR" class="button" target="_blank">Baby Registry</a></p>
                 <p id="countdown">Arrival in <span id="weeksRemaining">...</span> weeks</p>
+                <button id="backToRsvpBtn" type="button">← RSVP</button>
             </div>
         </div>
     </div>
@@ -402,6 +418,13 @@
             document.getElementById('rsvpForm').style.display = 'none';
             this.style.display = 'none';
             document.getElementById('directions-section').style.display = 'block';
+        });
+        
+        // Back to RSVP button click handler
+        document.getElementById('backToRsvpBtn').addEventListener('click', function() {
+            document.getElementById('directions-section').style.display = 'none';
+            document.getElementById('rsvpForm').style.display = 'block';
+            document.getElementById('directionsBtn').style.display = 'block';
         });
     </script>
 </body>
