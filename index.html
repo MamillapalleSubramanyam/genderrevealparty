@@ -1,56 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Open Graph meta tags for link previews (WhatsApp, Facebook, etc.) -->
-  <meta property="og:title" content="Subramanyam is live" />
-  <meta property="og:description" content="Watch the live stream and chat here on anusubbu.com" />
-  <meta property="og:image" content="https://anusubbu.com/images/seemantham.jpeg" />  <!-- CHANGE THIS PATH if needed -->
-  <meta property="og:image:width" content="1200" />   <!-- Update if your image dimensions differ -->
+  <!-- Load Noto Sans Telugu from Google Fonts (Bold weight for title) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="అనూహ్య సీమంతం వేడుక" />
+  <meta property="og:description" content="అనూహ్య సీమంతం వేడుక live stream" />
+  <meta property="og:image" content="https://anusubbu.com/images/seemantham.jpeg" />
+  <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://anusubbu.com/" />
   <meta property="og:type" content="website" />
 
-  <!-- Optional: Better previews on X/Twitter -->
+  <!-- Twitter/X Cards -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Subramanyam is live" />
-  <meta name="twitter:description" content="Watch the live stream and chat here on anusubbu.com" />
+  <meta name="twitter:title" content="అనూహ్య సీమంతం వేడుక" />
+  <meta name="twitter:description" content="అనూహ్య సీమంతం వేడుక live stream" />
   <meta name="twitter:image" content="https://anusubbu.com/images/seemantham.jpeg" />
-  <title>Anuhya's Seemantham</title>
+
+  <title>అనూహ్య సీమంతం వేడుక - anusubbu.com</title>
+
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #0e0e0e;
+      background-image: url('seemantham_background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #0e0e0e;
       color: #fff;
-      font-family: Arial, sans-serif;
+      font-family: 'Noto Sans Telugu', Arial, sans-serif;
+      min-height: 100vh;
     }
+
     header {
       text-align: center;
-      padding: 20px;
-      background: #18181b;
+      padding: 40px 20px;
+      background: rgba(24, 24, 27, 0.75);
+      backdrop-filter: blur(6px);
     }
+
     h1 {
       margin: 0;
-      font-size: 2.5em;
+      font-size: 3.5em;
+      font-weight: 700;
+      color: #ffff00;
+      text-shadow: 
+        -4px -4px 0 #000,  
+         4px -4px 0 #000,
+        -4px  4px 0 #000,
+         4px  4px 0 #000,
+        -5px -5px 0 #000,
+         5px -5px 0 #000,
+        -5px  5px 0 #000,
+         5px  5px 0 #000;
+      letter-spacing: 2px;
+      line-height: 1.1;
     }
+
     .container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px;
     }
-    /* Responsive 16:9 wrapper for the embed */
+
     .embed-wrapper {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 ratio */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      background: #000;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.65);
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.8);
     }
+
     #twitch-embed {
       position: absolute;
       top: 0;
@@ -63,8 +92,7 @@
 <body>
 
   <header>
-    <h1>Subramanyam is live</h1>
-    <p>Watch the live stream and chat here</p>
+    <h1>అనూహ్య సీమంతం వేడుక</h1>
   </header>
 
   <div class="container">
@@ -73,21 +101,19 @@
     </div>
   </div>
 
-  <!-- Load Twitch Embed JS (Everything embed) -->
+  <!-- Twitch Embed Script -->
   <script src="https://embed.twitch.tv/embed/v1.js"></script>
-
   <script type="text/javascript">
-    // Initialize the Twitch Embed
     new Twitch.Embed("twitch-embed", {
       width: "100%",
       height: "100%",
-      channel: "mamillapallesubramanyam",       // Your Twitch channel name
-      parent: ["anusubbu.com", "www.anusubbu.com"], // Required security domains
-      layout: "video-with-chat",                // Ensures chat shows with video (live only)
-      autoplay: true,                           // Optional: auto-play when live
-      muted: false,                             // Optional: change to true if autoplay is blocked by browser
-      theme: "dark"                             // Optional: "dark" or "light"
-      // allowfullscreen: true                  // Default true, enables full-screen button
+      channel: "mamillapallesubramanyam",
+      parent: ["anusubbu.com", "www.anusubbu.com"],
+      layout: "video-with-chat",
+      autoplay: true,
+      muted: false,
+      theme: "dark"
+      //allowfullscreen: true
     });
   </script>
 
