@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Load Noto Sans Telugu from Google Fonts (Bold weight for title) -->
+  <!-- Load Noto Sans Telugu for crisp Telugu rendering -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@700&display=swap" rel="stylesheet">
 
-  <!-- Open Graph meta tags -->
+  <!-- Open Graph / Twitter meta (unchanged) -->
   <meta property="og:title" content="అనూహ్య సీమంతం వేడుక" />
   <meta property="og:description" content="అనూహ్య సీమంతం వేడుక live stream" />
   <meta property="og:image" content="https://anusubbu.com/images/seemantham.jpeg" />
@@ -15,8 +15,6 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://anusubbu.com/" />
   <meta property="og:type" content="website" />
-
-  <!-- Twitter/X Cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="అనూహ్య సీమంతం వేడుక" />
   <meta name="twitter:description" content="అనూహ్య సీమంతం వేడుక live stream" />
@@ -52,14 +50,10 @@
       font-weight: 700;
       color: #ffff00;
       text-shadow: 
-        -4px -4px 0 #000,  
-         4px -4px 0 #000,
-        -4px  4px 0 #000,
-         4px  4px 0 #000,
-        -5px -5px 0 #000,
-         5px -5px 0 #000,
-        -5px  5px 0 #000,
-         5px  5px 0 #000;
+        -4px -4px 0 #000, 4px -4px 0 #000,
+        -4px  4px 0 #000, 4px  4px 0 #000,
+        -5px -5px 0 #000, 5px -5px 0 #000,
+        -5px  5px 0 #000, 5px  5px 0 #000;
       letter-spacing: 2px;
       line-height: 1.1;
     }
@@ -70,22 +64,44 @@
       padding: 20px;
     }
 
-    .embed-wrapper {
+    /* Video wrapper – keeps 16:9 aspect ratio */
+    .video-wrapper {
       position: relative;
-      padding-bottom: 56.25%;
+      padding-bottom: 56.25%; /* 16:9 */
       height: 0;
       overflow: hidden;
       background: rgba(0,0,0,0.65);
       border-radius: 12px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+      margin-bottom: 20px; /* Space before chat */
     }
 
-    #twitch-embed {
+    #twitch-video {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+    }
+
+    /* Chat wrapper – scrollable, full-width on mobile, optional max-width on desktop */
+    .chat-wrapper {
+      background: rgba(0,0,0,0.7);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    }
+
+    .chat-wrapper iframe {
+      width: 100%;
+      height: 500px; /* Adjust as needed; taller for more messages visible */
+      border: none;
+    }
+
+    @media (min-width: 768px) {
+      .chat-wrapper iframe {
+        height: 600px; /* Taller on desktop */
+      }
     }
   </style>
 </head>
@@ -96,24 +112,35 @@
   </header>
 
   <div class="container">
-    <div class="embed-wrapper">
-      <div id="twitch-embed"></div>
+
+    <!-- Top: Video-only embed -->
+    <div class="video-wrapper">
+      <div id="twitch-video"></div>
     </div>
+
+    <!-- Bottom: Chat-only embed -->
+    <div class="chat-wrapper">
+      <iframe
+        src="https://www.twitch.tv/embed/mamillapallesubramanyam/chat?parent=anusubbu.com&parent=www.anusubbu.com&darkpopout"
+        scrolling="yes"
+        frameborder="0">
+      </iframe>
+    </div>
+
   </div>
 
-  <!-- Twitch Embed Script -->
+  <!-- Twitch JS Embed for video only -->
   <script src="https://embed.twitch.tv/embed/v1.js"></script>
   <script type="text/javascript">
-    new Twitch.Embed("twitch-embed", {
+    new Twitch.Embed("twitch-video", {
       width: "100%",
       height: "100%",
       channel: "mamillapallesubramanyam",
       parent: ["anusubbu.com", "www.anusubbu.com"],
-      layout: "video-with-chat",
+      layout: "video",          // <-- This removes chat!
       autoplay: true,
       muted: false,
       theme: "dark"
-      //allowfullscreen: true
     });
   </script>
 
